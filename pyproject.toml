@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyllm"
+version = "0.1.0"
+description = "A compact, Python-specialized decoder-only Transformer, built from scratch for learning."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "torch>=2.1",
+    "pyyaml>=6.0",
+    "tokenizers>=0.15",   # only used later, in the tokenizer phase
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.5",
+]
+
+# --- src/ layout: the package lives under src/, so `pip install -e .` is the
+# --- only way to import it. This kills "works because of my cwd" import bugs.
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]   # errors, pyflakes, isort, pyupgrade, bugbear

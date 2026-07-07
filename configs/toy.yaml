@@ -1,0 +1,17 @@
+# Tiny model that runs and trains in seconds on CPU. This is what the test
+# suite and the "overfit one batch" sanity check use. It is NOT meant to be good
+# at anything -- it exists so every line of code in the repo is exercisable
+# without a GPU.
+vocab_size: 512
+d_model: 128
+n_layers: 2
+n_heads: 4
+n_kv_heads: 4
+seq_len: 64
+ffn_mult: 4.0
+ffn_multiple_of: 32
+rope_theta: 10000.0
+norm_eps: 1.0e-5
+dropout: 0.0
+tie_weights: true
+bias: false

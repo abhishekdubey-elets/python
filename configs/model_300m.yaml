@@ -1,0 +1,18 @@
+# Scale-up model, GPT-2-medium shape. Estimated ~360M parameters (~51M of which
+# is the tied embedding table). We build/test at 125M; this config exists so
+# scaling up is a one-file change once you have a GPU. n_kv_heads is set below
+# n_heads here to demonstrate grouped-query attention (GQA) -- 16 query heads
+# share 4 key/value heads, cutting the KV-cache memory 4x at inference.
+vocab_size: 50257
+d_model: 1024
+n_layers: 24
+n_heads: 16
+n_kv_heads: 4           # GQA: 16 query heads, 4 kv heads (group size 4)
+seq_len: 2048
+ffn_mult: 4.0
+ffn_multiple_of: 256
+rope_theta: 10000.0
+norm_eps: 1.0e-5
+dropout: 0.0
+tie_weights: true
+bias: false

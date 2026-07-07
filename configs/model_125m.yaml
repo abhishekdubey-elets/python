@@ -1,0 +1,17 @@
+# Reference model, GPT-2-small shape with a modern architecture.
+# Estimated ~124M parameters (of which ~38.6M / 31% is the tied embedding
+# table because vocab_size = 50257). Drop vocab_size to 32000 to reclaim ~14M
+# params for the transformer if you want a "leaner" 125M.
+vocab_size: 50257
+d_model: 768
+n_layers: 12
+n_heads: 12
+n_kv_heads: 12          # == n_heads => plain multi-head attention (MHA)
+seq_len: 1024
+ffn_mult: 4.0
+ffn_multiple_of: 256
+rope_theta: 10000.0
+norm_eps: 1.0e-5
+dropout: 0.0
+tie_weights: true
+bias: false
