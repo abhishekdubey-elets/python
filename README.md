@@ -15,7 +15,7 @@ every decision.
 | 1 | Architecture & roadmap | ✅ (design) |
 | 2 | Project skeleton & config system | ✅ |
 | 3 | Tokenizer | ✅ |
-| 4 | Model (RMSNorm, RoPE, SwiGLU, attention, block, model) | ⏳ |
+| 4 | Model (RMSNorm, RoPE, SwiGLU, attention, block, model) | ✅ |
 | 5 | Data pipeline | ⏳ |
 | 6 | Training loop | ⏳ |
 | 7 | Inference (KV cache, sampling, streaming) | ⏳ |
