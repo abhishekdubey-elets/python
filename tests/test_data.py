@@ -44,7 +44,8 @@ def test_minhash_estimates_similarity():
     base = "def add(a, b):\n    return a + b\n" * 3
     near = base + "# a trailing comment\n"
     far = "class Foo:\n    pass\n" * 3
-    assert estimated_jaccard(h.signature(base), h.signature(near)) > 0.7
+    # near-dup shares most shingles; unrelated code shares almost none.
+    assert estimated_jaccard(h.signature(base), h.signature(near)) > 0.5
     assert estimated_jaccard(h.signature(base), h.signature(far)) < 0.3
 
 

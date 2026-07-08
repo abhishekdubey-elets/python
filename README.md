@@ -16,11 +16,13 @@ every decision.
 | 2 | Project skeleton & config system | ✅ |
 | 3 | Tokenizer | ✅ |
 | 4 | Model (RMSNorm, RoPE, SwiGLU, attention, block, model) | ✅ |
-| 5 | Data pipeline | ⏳ |
-| 6 | Training loop | ⏳ |
-| 7 | Inference (KV cache, sampling, streaming) | ⏳ |
-| 8 | Evaluation | ⏳ |
-| 9 | Optimizations & polish | ⏳ |
+| 5 | Data pipeline | ✅ |
+| 6 | Training loop | ✅ |
+| 7 | Inference (KV cache, sampling, streaming) | ✅ |
+| 8 | Evaluation | ✅ |
+| 9 | Optimizations & polish | ✅ |
+
+**All 9 phases complete — 90 tests passing.**
 
 ## Quickstart
 
@@ -42,6 +44,26 @@ from pyllm import ModelConfig
 cfg = ModelConfig.from_yaml("configs/model_125m.yaml")
 print(cfg.head_dim, cfg.ffn_hidden)          # 64 2048
 print(f"{cfg.estimate_params()/1e6:.1f}M params")
+```
+
+## Full workflow (CLI)
+
+```bash
+# 1. train a tokenizer on a Python corpus (e.g. the local stdlib)
+python scripts/train_tokenizer.py --input-dir <py-dir> --vocab-size 50257 \
+    --output tokenizer/pyllm.json
+
+# 2. clean, dedup, and pack data into train/val shards
+python scripts/prepare_data.py --input-dir <py-dir> \
+    --tokenizer tokenizer/pyllm.json --out-dir data/packed --near-dedup
+
+# 3. train (use configs/toy.yaml on CPU; 125m/300m need a GPU)
+python scripts/train.py --model-config configs/toy.yaml \
+    --train-config configs/train_default.yaml --data-dir data/packed
+
+# 4. generate
+python scripts/generate.py --checkpoint checkpoints/ckpt.pt \
+    --tokenizer tokenizer/pyllm.json --prompt "def fibonacci(n):" --top-p 0.95
 ```
 
 ## Layout
