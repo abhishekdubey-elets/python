@@ -10,7 +10,7 @@ venv/
 
 # Project artifacts
 checkpoints/
-data/
+/data/
 *.bin
 *.log
 runs/            # tensorboard
